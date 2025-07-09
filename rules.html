@@ -1,3 +1,4 @@
+<!-- Style and script for the rules.html are in the same file, not separated.-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,16 +8,143 @@
     <title>Rules</title>
     <link rel="stylesheet" href="style.css">
     </head>
-    <body>
-        <header>
-            <h1> Rules </h1>
-        </header>
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="rules.html">Rules</a>
-            <a href="play.html">Play</a>
-            <a href="about.html">Learn about Settlers of Catan</a>
-        </nav>
+<style>
+    body{
+        background-image: linear-gradient(rgba(120, 68, 33, 1) 0%, rgba(120, 68, 33, 1) 80%, rgba(39,39,39,1) 90%);
+        background-attachment: fixed;
+    }
+    header{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        background-image: linear-gradient(to right, black 0%, black 30%, burlywood 80%);
+    }
+    header h1 {
+        align-items: center;
+        margin: 0;
+        padding-left:20px;
+        color: white;
+    }
+    nav ul{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 30vw;
+    }
+    nav ul li{
+        float: left;
+    }
+    nav ul li a{
+        display: block;
+        color: black;
+        text-align:center;
+        padding: 14px 16px;
+        text-decoration: none;
+        background-color: burlywood;
+    }
+    nav ul li a:hover{
+        background-color: brown;
+    }
+    .welc_plyBtn{
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        margin-top: 100px;
+        margin-left: 50px;
+    }
+    .welc_plyBtn h1{
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+    .welc_plyBtn div{
+        font-size: 1.5em;
+        width:65vw;
+        text-align: left;
+    }
+    #playbtn{
+        /* align-self: left; */
+        width: min-content;
+        justify-content: center;
+        background-color: bisque;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+    }
+    #playbtn:hover{
+        background-color: brown;
+    }
+    .pdfViewerContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px;
+        margin-top: 50px;
+    }
+    #pdfViewer {
+        width: -webkit-fill-available;
+        height: 975px;
+    }
+    #option1{
+        height: 70%;
+        width:30%;
+        border:1px;
+        border-style: solid;
+    }
+    footer{
+        display: flex;
+        flex-direction: column;
+        color: white;
+        align-items: center;
+        margin: 20px;
+    }
+    #devName{
+        margin:0;
+    }
+</style>
+<body>
+    <header>
+        <h1>
+            Settlers of Catan
+        </h1>
 
-    </body>
+        <nav>
+            <ul>
+                <li id="homeLink"><a href="home.html">Home</a></li>
+                <li id="rulesLink"><a href="rules.html">Rules</a></li>
+                <li id="playLink"><a href="play.html">Play</a></li>
+                <li id="learnLink"><a href="about.html">Learn</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="welc_plyBtn">
+        <h1>Let's learn how to play the game.</h1>
+        <div>
+            <p>We are using the rules derived from the official <a href="https://catan.com">website</a> of the game.</a> Please consult this pdf for more detailed information.</p>
+        </div>
+        <!-- <button id="playbtn">Play</button> -->
+    </div>
+    <div class="pdfViewerContainer">
+        <iframe id="pdfViewer" src="/Assets/CATAN–The Game Rulebook secure.pdf" frameborder="0" title="pdf viewer"></iframe>
+    </div>
+    <footer>
+        <p>Developed by:</p>
+        <p id="devName">Kyle Davison</p>
+        <p id="devName">Marietta Wright</p>
+        <p id="devName">Padley Perard</p>
+        <p id="devName">Laity Covan</p>
+    </footer>
+</body>
+<script>
+    function play(){
+        alert("now playing")
+    }
+    playbtnClicked = document.getElementById('playbtn').onclick = play
+    playLinkClicked = document.getElementById('playLink').onclick = play
+</script>
 </html>
