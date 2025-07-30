@@ -112,25 +112,22 @@
 
         <nav>
             <ul>
-                <li id="homeLink"><a href="home.html">Home</a></li>
                 <li id="rulesLink"><a href="rules.html">Rules</a></li>
                 <li id="playLink"><a href="play.html">Play</a></li>
-                <li id="learnLink"><a href="about.html">Learn</a></li>
             </ul>
         </nav>
     </header>
     <div class="welc_plyBtn">
         <h1>Welcome to Settlers of Catan!</h1>
-        <button id="playbtn">Play</button>
+        <a href="play.html">
+            <button id="playbtn">Play</button>
+        </a>
         <div>
             <p>We are thrilled to have you play our copy of the Settlers of Catan game that is serving as a class project. The idea behind this project is to learn the skill of project analytics and ways to collaborate in a software development environment.</p>
             <p>This website is the result of what we learn in class and the fruit of our collaboration. The vision is not to make a perfect game but to apply what we learn in our class.</p>
         </div>
     </div>
     <div class="options">
-        <!-- <div id="option1"></div>
-        <div id="option1"></div>
-        <div id="option1"></div> -->
     </div>
     <footer>
         <p>Developed by:</p>
@@ -141,10 +138,5 @@
     </footer>
 </body>
 <script>
-    function play(){
-        alert("now playing")
-    }
-    playbtnClicked = document.getElementById('playbtn').onclick = play
-    playLinkClicked = document.getElementById('playLink').onclick = play
 </script>
 </html>
