@@ -1,3 +1,5 @@
+//initialize constants
+
 const landResourcesOriginal = ['wood', 'wood', 'wood', 'wood', 'brick', 'brick', 'brick', 'brick', 'wheat', 'wheat', 'wheat', 'wheat', 'ore', 'ore', 'ore', 'sheep', 'sheep', 'sheep', 'desert'];
 const tokensOriginal = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12];
 const mapRadius = 2, seaRadius = mapRadius + 1, side = 115 / 2;
@@ -5,10 +7,9 @@ const board = document.getElementById('board');
 const players = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
 let currentPlayer = 0;
 let resourcesCollapsed = false;
-let robberHex = null;
+let robberHex = null;  
 let robberHexId = null;
 let robberMoving = false;
-let robberHexEl = null;
 const playerColors = [
     '#8A2BE2', // violet
     '#FF8C00', // orange
@@ -24,6 +25,8 @@ resourcePanels.forEach(panel => {
         labelEl.style.color = playerColors[idx];
     }
 });
+
+//style trade target dropdown
 const tradeTargetSelect = document.getElementById('trade-target');
 Array.from(tradeTargetSelect.options).forEach((opt, idx) => {
     opt.style.color = playerColors[idx];
@@ -32,12 +35,14 @@ function updateTradeTargetColor() {
     tradeTargetSelect.style.color = playerColors[tradeTargetSelect.selectedIndex];
 }
 tradeTargetSelect.addEventListener('change', updateTradeTargetColor);
-
 updateTradeTargetColor();
+
+
+
 let dragStart = null;
 let buildMode = null;  // null | 'road' | 'settlement'
 const buildRoadBtn = document.getElementById('build-roads-mode');
-const roads = new Set();
+const roads = new Set(); // store built roads
 const buildSettBtn = document.getElementById('build-settlements-mode');
 buildSettBtn.addEventListener('click', () => {
     // toggle settlement mode on/off
@@ -55,8 +60,10 @@ buildSettBtn.addEventListener('click', () => {
     document.getElementById('build-road-cost')
         .classList.remove('active');
 });
+
+// players current resource counts and starting resources
 const playersResources = players.map(_ => ({ wood: 5, brick: 5, wheat: 5, ore: 5, sheep: 5 }));
-const settlementMap = {};
+const settlementMap = {}; // map corner key to settlement info
 
 function cornerCenter(cornerEl) {
     const br = board.getBoundingClientRect();
@@ -145,11 +152,13 @@ board.addEventListener('mouseup', e => {
     document.getElementById('roads-layer').appendChild(line);
 });
 
+//update the current player in top right and resource panel
 function updateCurrentPlayerUI() {
     document.getElementById('current-player').textContent = 'Current Player: ' + players[currentPlayer];
     updateResourcePanel();
     if (resourcesCollapsed) applyCollapse();
 }
+
 function updateResourcePanel() {
     playersResources.forEach((resMap, idx) => {
         const panel = document.querySelector(`.player-resources[data-player="${idx}"]`);
@@ -204,6 +213,7 @@ function clearBoard() {
     Object.values(settlementMap).forEach(s => s.el.remove());
     Object.keys(settlementMap).forEach(k => delete settlementMap[k]);
 }
+//initial board generation
 function generateBoard() {
     clearBoard();
     landResources = [...landResourcesOriginal];
@@ -242,7 +252,6 @@ function generateBoard() {
                     } else {
                         robberHex = hex;
                         robberMoving = false;
-                        robberHexEl = hex;
                         placeRobberIcon(hex);
                         tokenElements.push(null);
                     }
@@ -262,8 +271,7 @@ board.addEventListener('click', e => {
     if (buildMode !== 'settlement' || !e.target.classList.contains('corner')) return;
 
     // never place settlements while in road‐mode
-    // only allow settlement clicks when buildSettlementMode is on,
-    // otherwise ignore corner‐clicks
+    // only allow settlement clicks when buildSettlementMode is on otherwise ignore corner‐clicks
     // must be on a corner
     if (!e.target.classList.contains('corner')) return;
 
@@ -315,7 +323,7 @@ document.getElementById('roll-dice').addEventListener('click', () => {
         alert('Robber! Click a land hex to move the robber.');
         return;  // skip the normal distribution
     }
-
+    //distribute resources
     const br = board.getBoundingClientRect();
     document.querySelectorAll('.hex.land').forEach(hex => {
         if (hex.querySelector('.robber-icon')) return;
